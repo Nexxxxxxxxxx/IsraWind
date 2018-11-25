@@ -1,7 +1,9 @@
-package com.oleg.mir.israwind;
+package com.oleg.mir.israwind.AccountActivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.oleg.mir.israwind.R;
 
 public class LoginActivity extends AppCompatActivity {
 

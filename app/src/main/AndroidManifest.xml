@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".report_wind" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".AccountActivity.LoginActivity" />
+        <activity android:name=".AccountActivity.SignupActivity"></activity>
     </application>
 
 </manifest>
