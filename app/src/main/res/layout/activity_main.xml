@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
 
-
+<!--
     <Button
         android:id="@+id/AddReport"
         android:layout_width="49dp"
@@ -19,8 +19,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+-->
 
-<!--
     <EditText
         android:id="@+id/old_email"
         android:layout_width="368dp"
@@ -148,5 +148,5 @@
         android:gravity="center"
         android:hint="@string/email_id"
         android:textSize="30sp"
-        android:textStyle="bold|italic" />-->
+        android:textStyle="bold|italic" />
 </RelativeLayout>
