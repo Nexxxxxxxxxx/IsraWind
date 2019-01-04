@@ -1,4 +1,6 @@
 package com.oleg.mir.israwind;
+import android.location.Location;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,21 +13,23 @@ public class WindReportDTO {
     public int gustSpeed;
     public String comment;
     public String reportTime;
+    public String location;
     public enum WindDirection {
         N,
         S,
         W,
         E
     };
+    public WindDirection windDirection;
 
-    WindDirection windDirection;
-
-    WindReportDTO(int _windSpeed, WindDirection _windDirection )
+    WindReportDTO(int _windSpeed, WindDirection _windDirection, String _location, int _gustSpeed)
     {
         windSpeed = _windSpeed;
         windDirection = _windDirection;
         reportTime = GetCurrentDateTime();
         comment = "test comment";
+        location = _location;
+        gustSpeed = _gustSpeed;
     }
 
     private String GetCurrentDateTime()
