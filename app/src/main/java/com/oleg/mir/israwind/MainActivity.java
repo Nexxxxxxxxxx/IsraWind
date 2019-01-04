@@ -36,7 +36,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//get firebase auth instance
+    }
+
+    public void AddWindReport(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), report_wind.class);
+        startActivity(intent);
+    }
+        /*
+        //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
 
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
 
 
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
@@ -174,8 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    // this listener will be called when there is change in firebase user session
+   // this listener will be called when there is change in firebase user session
     FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
         @SuppressLint("SetTextI18n")
         @Override
@@ -234,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+  */
 }
 
 // and yesss we have made it. WE HAVE MADE AN APP WITH LOGIN AND REGISTRATION
