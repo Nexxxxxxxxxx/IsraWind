@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "861045024046-t519ohfl0c1tju0nh2l6qvg6jnvnn3f6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oleg.mir.israwind",
+            "certificate_hash": "04fbe9bc2c6298e24ee7bc37c11ae230b6f4bb33"
+          }
+        },
+        {
           "client_id": "861045024046-ke6bt371tmbd1q3eaq64ql0trdiab2u9.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861045024046-ke6bt371tmbd1q3eaq64ql0trdiab2u9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
