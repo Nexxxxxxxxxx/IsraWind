@@ -13,35 +13,40 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class report_wind extends AppCompatActivity {
     EditText windSpeedEditText;
+    EditText gustEditText;
+    Spinner locationsDropdown;
+    Spinner directionsDropdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_wind);
 
-        //get the spinner from the xml.
-        Spinner dropdown = findViewById(R.id.spinner);
-        //create a list of items for the spinner.
-        String[] items = new String[]{"N", "S", "W", "E", "NW", "NE", "SE", "SW"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
+        directionsDropdown = findViewById(R.id.spinner_wind_direction);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.WindDirections);
+        directionsDropdown.setAdapter(adapter);
+
+        locationsDropdown = findViewById(R.id.spinner_location_dropdown);
+        ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.Location);
+        locationsDropdown.setAdapter(locationsDropdownAdapter);
 
         windSpeedEditText = findViewById(R.id.windSpeedID);
+        gustEditText = findViewById(R.id.gustID);
 
     }
 
     public void ReportWind(View v)
     {
         int windSpeed = Integer.parseInt(windSpeedEditText.getText().toString());
+        int gust = Integer.parseInt(gustEditText.getText().toString());
+        String location = locationsDropdown.getSelectedItem().toString();
+        String direction = directionsDropdown.getSelectedItem().toString();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference windReportDatabase = database.getReference("WindReportDto");
         String id = windReportDatabase.push().getKey();
 
-        WindReportDTO windReport = new WindReportDTO(windSpeed,WindReportDTO.WindDirection.N);
+        WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust);
         windReportDatabase.child(id).setValue(windReport);
 
     }
