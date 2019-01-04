@@ -5,12 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class report_wind extends AppCompatActivity {
+    EditText windSpeedEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +29,20 @@ public class report_wind extends AppCompatActivity {
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
 
+        windSpeedEditText = findViewById(R.id.windSpeedID);
+
     }
 
     public void ReportWind(View v)
     {
-        // Write a message to the database
+        int windSpeed = Integer.parseInt(windSpeedEditText.getText().toString());
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("message");
+        DatabaseReference windReportDatabase = database.getReference("WindReportDto");
+        String id = windReportDatabase.push().getKey();
 
-        //myRef.setValue("Hello, World!");
+        WindReportDTO windReport = new WindReportDTO(windSpeed,WindReportDTO.WindDirection.N);
+        windReportDatabase.child(id).setValue(windReport);
 
-        WindReportDTO windReport = new WindReportDTO(15,WindReportDTO.WindDirection.N);
-
-        DatabaseReference myRef = database.getReference("WindReportDto");
     }
 }
