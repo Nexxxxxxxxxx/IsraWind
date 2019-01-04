@@ -16,6 +16,7 @@ public class report_wind extends AppCompatActivity {
     EditText gustEditText;
     Spinner locationsDropdown;
     Spinner directionsDropdown;
+    EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class report_wind extends AppCompatActivity {
 
         windSpeedEditText = findViewById(R.id.windSpeedID);
         gustEditText = findViewById(R.id.gustID);
+        commentEditText = findViewById(R.id.commentsID2);
 
     }
 
@@ -41,12 +43,13 @@ public class report_wind extends AppCompatActivity {
         int gust = Integer.parseInt(gustEditText.getText().toString());
         String location = locationsDropdown.getSelectedItem().toString();
         String direction = directionsDropdown.getSelectedItem().toString();
+        String comment = commentEditText.getText().toString();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference windReportDatabase = database.getReference("WindReportDto");
         String id = windReportDatabase.push().getKey();
 
-        WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust);
+        WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust, comment);
         windReportDatabase.child(id).setValue(windReport);
 
     }

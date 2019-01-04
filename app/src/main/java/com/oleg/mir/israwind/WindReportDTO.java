@@ -16,12 +16,12 @@ public class WindReportDTO {
     public String location;
     public String windDirection;
 
-    WindReportDTO(int _windSpeed, String _windDirection, String _location, int _gustSpeed)
+    WindReportDTO(int _windSpeed, String _windDirection, String _location, int _gustSpeed, String _comment)
     {
         windSpeed = _windSpeed;
         windDirection = _windDirection;
         reportTime = GetCurrentDateTime();
-        comment = "test comment";
+        comment = _comment;
         location = _location;
         gustSpeed = _gustSpeed;
     }
