@@ -33,8 +33,12 @@ public class report_wind extends AppCompatActivity {
     {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        //DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello, World!");
+        //myRef.setValue("Hello, World!");
+
+        WindReportDTO windReport = new WindReportDTO(15,WindReportDTO.WindDirection.N);
+
+        DatabaseReference myRef = database.getReference("WindReportDto");
     }
 }
