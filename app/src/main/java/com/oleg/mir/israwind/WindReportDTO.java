@@ -14,15 +14,9 @@ public class WindReportDTO {
     public String comment;
     public String reportTime;
     public String location;
-    public enum WindDirection {
-        N,
-        S,
-        W,
-        E
-    };
-    public WindDirection windDirection;
+    public String windDirection;
 
-    WindReportDTO(int _windSpeed, WindDirection _windDirection, String _location, int _gustSpeed)
+    WindReportDTO(int _windSpeed, String _windDirection, String _location, int _gustSpeed)
     {
         windSpeed = _windSpeed;
         windDirection = _windDirection;
