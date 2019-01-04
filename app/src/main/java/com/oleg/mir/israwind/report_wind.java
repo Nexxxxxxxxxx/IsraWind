@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ReportWind extends AppCompatActivity {
+public class report_wind extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +31,14 @@ public class ReportWind extends AppCompatActivity {
 
     public void ReportWind(View v)
     {
+        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reportsDatabase = database.getReference("WindReportDto");
+        //DatabaseReference myRef = database.getReference("message");
 
-        String id = reportsDatabase.push().getKey();
+        //myRef.setValue("Hello, World!");
 
         WindReportDTO windReport = new WindReportDTO(15,WindReportDTO.WindDirection.N);
-        reportsDatabase.child(id).setValue(windReport);
+
+        DatabaseReference myRef = database.getReference("WindReportDto");
     }
 }
