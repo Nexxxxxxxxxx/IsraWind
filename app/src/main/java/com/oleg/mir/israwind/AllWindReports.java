@@ -12,7 +12,7 @@ public class AllWindReports {
     public WindReportDTO [] allWindReports;
     public int numOfLocations = IsraWindConsts.Location.length;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference windReportDatabase = database.getReference("WindReportDto");
+    DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
     Object allReports;
 
     public AllWindReports()

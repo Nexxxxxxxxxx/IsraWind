@@ -56,7 +56,7 @@ public class report_wind extends AppCompatActivity {
     public void UpdateLastWindReport(WindReportDTO windReport)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference windReportDatabase = database.getReference("LastWindReport");
+        DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
 
         //String id = windReportDatabase.push().getKey();
         //windReportDatabase.child(id).setValue(windReport);
