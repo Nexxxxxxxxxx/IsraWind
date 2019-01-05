@@ -11,6 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class report_wind extends AppCompatActivity {
     EditText windSpeedEditText;
     EditText gustEditText;
@@ -45,12 +48,39 @@ public class report_wind extends AppCompatActivity {
         String direction = directionsDropdown.getSelectedItem().toString();
         String comment = commentEditText.getText().toString();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference windReportDatabase = database.getReference("WindReportDto");
-        String id = windReportDatabase.push().getKey();
-
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust, comment);
-        windReportDatabase.child(id).setValue(windReport);
 
+        UpdateLastWindReport(windReport);
+    }
+
+    public void UpdateLastWindReport(WindReportDTO windReport)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference windReportDatabase = database.getReference("LastWindReport");
+
+        //String id = windReportDatabase.push().getKey();
+        //windReportDatabase.child(id).setValue(windReport);
+
+        DatabaseReference locationRef = windReportDatabase.child(Integer.toString(IsraWindUtils.GetLocationID(windReport.location)));
+
+        Map<String,Object> taskMap = new HashMap<String,Object>();
+
+        taskMap.put("windSpeed", windReport.windSpeed);
+        locationRef.updateChildren(taskMap);
+
+        taskMap.put("gustSpeed", windReport.gustSpeed);
+        locationRef.updateChildren(taskMap);
+
+        taskMap.put("reportTime", windReport.reportTime);
+        locationRef.updateChildren(taskMap);
+
+        taskMap.put("comment", windReport.comment);
+        locationRef.updateChildren(taskMap);
+
+        taskMap.put("windDirection", windReport.windDirection);
+        locationRef.updateChildren(taskMap);
+
+        taskMap.put("location", windReport.location);
+        locationRef.updateChildren(taskMap);
     }
 }
