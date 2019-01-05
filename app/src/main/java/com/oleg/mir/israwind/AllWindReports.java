@@ -13,13 +13,14 @@ public class AllWindReports {
     public int numOfLocations = IsraWindConsts.Location.length;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference windReportDatabase = database.getReference("WindReportDto");
+    Object allReports;
 
     public AllWindReports()
     {
         windReportDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GetReportsFromFirebase(dataSnapshot);
+                allReports = GetReportsFromFirebase(dataSnapshot);
             }
 
             @Override
@@ -29,8 +30,8 @@ public class AllWindReports {
         });
     }
 
-    private void GetReportsFromFirebase(DataSnapshot dataSnapshot)
+    private Object GetReportsFromFirebase(DataSnapshot dataSnapshot)
     {
-        Object data = dataSnapshot.getValue();
+        return dataSnapshot.getValue();
     }
 }
