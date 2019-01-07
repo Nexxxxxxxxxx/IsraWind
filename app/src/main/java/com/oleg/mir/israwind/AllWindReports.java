@@ -20,7 +20,7 @@ public class AllWindReports {
         windReportDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allReports = GetReportsFromFirebase(dataSnapshot);
+                allReports = dataSnapshot.getValue();
             }
 
             @Override
@@ -28,10 +28,5 @@ public class AllWindReports {
 
             }
         });
-    }
-
-    private Object GetReportsFromFirebase(DataSnapshot dataSnapshot)
-    {
-        return dataSnapshot.getValue();
     }
 }
