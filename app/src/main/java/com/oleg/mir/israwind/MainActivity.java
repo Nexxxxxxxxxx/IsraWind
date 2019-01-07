@@ -2,6 +2,7 @@ package com.oleg.mir.israwind;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,10 +10,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.oleg.mir.israwind.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,12 +41,89 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
 
+    TextView scr0,scr1, scr2,scr3,scr4;
+    TableLayout t1;
+    TableRow tr;
+
+    public AllWindReports allWindReports;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
+    Object allReports;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AllWindReports allWindReports = new AllWindReports();
+        t1 = (TableLayout)findViewById(R.id.t1);
+        t1.setColumnStretchable(0,true);
+        t1.setColumnStretchable(1,true);
+        t1.setColumnStretchable(2,true);
+        t1.setColumnStretchable(3,true);
+
+        TableRow [] tableRowArray = new TableRow[IsraWindConsts.Location.length];
+        TextView[] tableColArray = new TextView[5];
+
+        for(int j=0; j < IsraWindConsts.Location.length ; j++)
+        {
+            tableRowArray[j] = new TableRow(this);
+
+            for(int i = 0; i < 4; i++) {
+                tableColArray[i] = new TextView(this);
+
+                tableColArray[i].setText("");
+                tableColArray[i].setTextSize(15);
+                tableColArray[i].setId((j+1)*10+(i+1));
+
+                tableRowArray[j].addView(tableColArray[i]);
+
+            }
+
+            t1.addView(tableRowArray[j]);
+        }
+
+
+
+        //windReportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        windReportDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allReports = dataSnapshot.getValue();
+                int i =1;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    TextView textView;
+
+                    String location = ds.child("location").getValue(String.class);
+                    Integer windSpeed = ds.child("windSpeed").getValue(Integer.class);
+                    Integer gustSpeed = ds.child("gustSpeed").getValue(Integer.class);
+                    String windDirection = ds.child("windDirection").getValue(String.class);
+                    String reportTime = ds.child("reportTime").getValue(String.class);
+
+                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "1", "id", getPackageName()));
+                    textView.setText(location);
+
+                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "2", "id", getPackageName()));
+                    textView.setText("| " +windSpeed + "-" + gustSpeed);
+
+                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "3", "id", getPackageName()));
+                    textView.setText("| " +windDirection);
+
+                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "4", "id", getPackageName()));
+                    textView.setText("| " +reportTime.substring(8));
+
+                    i++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     public void AddWindReport(View v)
