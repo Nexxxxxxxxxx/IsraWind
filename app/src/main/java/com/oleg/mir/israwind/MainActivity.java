@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         t1.setColumnStretchable(3,true);
 
         TableRow [] tableRowArray = new TableRow[IsraWindConsts.Location.length];
-        TextView[] tableColArray = new TextView[5];
+        TextView[] tableColArray = new TextView[4];
 
         for(int j=0; j < IsraWindConsts.Location.length ; j++)
         {
