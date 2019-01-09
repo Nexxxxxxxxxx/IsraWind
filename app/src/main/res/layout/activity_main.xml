@@ -153,7 +153,7 @@
     <TableLayout
         android:id="@+id/t1"
         android:layout_width="match_parent"
-        android:layout_height="238dp"
+        android:layout_height="451dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
