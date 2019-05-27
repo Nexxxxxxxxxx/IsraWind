@@ -92,21 +92,12 @@ public class report_wind extends AppCompatActivity {
         Map<String,Object> taskMap = new HashMap<String,Object>();
 
         taskMap.put("windSpeed", windReport.windSpeed);
-        locationRef.updateChildren(taskMap);
-
         taskMap.put("gustSpeed", windReport.gustSpeed);
-        locationRef.updateChildren(taskMap);
-
         taskMap.put("reportTime", windReport.reportTime);
-        locationRef.updateChildren(taskMap);
-
         taskMap.put("comment", windReport.comment);
-        locationRef.updateChildren(taskMap);
-
         taskMap.put("windDirection", windReport.windDirection);
-        locationRef.updateChildren(taskMap);
-
         taskMap.put("location", windReport.location);
+        
         locationRef.updateChildren(taskMap);
     }
 }
