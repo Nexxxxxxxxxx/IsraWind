@@ -1,6 +1,8 @@
 package com.oleg.mir.israwind;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +53,30 @@ public class report_wind extends AppCompatActivity {
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust, comment);
 
         UpdateLastWindReport(windReport);
+
+        ShowReportStatus();
+    }
+
+    private void ShowReportStatus()
+    {
+        new AlertDialog.Builder(report_wind.this)
+                .setTitle("Report Status")
+                .setMessage("Your Report was added successfully!")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                //.setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
     }
 
     public void UpdateLastWindReport(WindReportDTO windReport)
