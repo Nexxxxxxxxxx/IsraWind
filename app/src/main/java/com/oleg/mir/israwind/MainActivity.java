@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 allReports = dataSnapshot.getValue();
-                int i =1;
+                int i = 1;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     TextView textView;
