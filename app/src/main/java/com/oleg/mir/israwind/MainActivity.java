@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.oleg.mir.israwind.AccountActivity.LoginActivity;
 import com.oleg.mir.israwind.AccountActivity.SignupActivity;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnChangePassword, btnRemoveUser,
@@ -72,7 +74,15 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < 4; i++) {
                 tableColArray[i] = new TextView(this);
 
-                tableColArray[i].setText("");
+                if(i==0)
+                {
+                    tableColArray[i].setText(IsraWindConsts.Location[j]);
+                }
+                else
+                {
+                    tableColArray[i].setText("|");
+                }
+
                 tableColArray[i].setTextSize(15);
                 tableColArray[i].setId((j+1)*10+(i+1));
 
@@ -101,19 +111,29 @@ public class MainActivity extends AppCompatActivity {
                     String windDirection = ds.child("windDirection").getValue(String.class);
                     String reportTime = ds.child("reportTime").getValue(String.class);
 
-                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "1", "id", getPackageName()));
-                    textView.setText(location);
+                    Integer locationID =  Arrays.asList(IsraWindConsts.Location).indexOf(location);
 
-                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "2", "id", getPackageName()));
-                    textView.setText("| " +windSpeed + "-" + gustSpeed);
+                    if(locationID != -1)
+                    {
+                        locationID=locationID+1;
+                        locationID = locationID*10;
+                        i=locationID;
 
-                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "3", "id", getPackageName()));
-                    textView.setText("| " +windDirection);
+                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+1), "id", getPackageName()));
+                        textView.setText(location);
 
-                    textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i) + "4", "id", getPackageName()));
-                    textView.setText("| " +reportTime.substring(8));
+                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+2) , "id", getPackageName()));
+                        textView.setText("| " +windSpeed + "-" + gustSpeed);
 
-                    i++;
+                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+3) , "id", getPackageName()));
+                        textView.setText("| " +windDirection);
+
+                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+4) , "id", getPackageName()));
+                        textView.setText("| " +reportTime.substring(8));
+
+                        i++;
+                    }
+
                 }
             }
 
@@ -122,8 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public void AddWindReport(View v)
@@ -131,210 +149,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), report_wind.class);
         startActivity(intent);
     }
-        /*
-        //get firebase auth instance
-        auth = FirebaseAuth.getInstance();
-        email = (TextView) findViewById(R.id.useremail);
-
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        setDataToView(user);
-
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
-                }
-            }
-        };
-    }
-
-
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
-
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
-
-        changePassword = (Button) findViewById(R.id.changePass);
-
-        remove = (Button) findViewById(R.id.remove);
-        signOut = (Button) findViewById(R.id.sign_out);
-
-        oldEmail = (EditText) findViewById(R.id.old_email);
-
-        password = (EditText) findViewById(R.id.password);
-        newPassword = (EditText) findViewById(R.id.newPassword);
-
-        oldEmail.setVisibility(View.GONE);
-
-        password.setVisibility(View.GONE);
-        newPassword.setVisibility(View.GONE);
-
-        changePassword.setVisibility(View.GONE);
-
-        remove.setVisibility(View.GONE);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-
-
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oldEmail.setVisibility(View.GONE);
-
-                password.setVisibility(View.GONE);
-                newPassword.setVisibility(View.VISIBLE);
-
-                changePassword.setVisibility(View.VISIBLE);
-
-                remove.setVisibility(View.GONE);
-            }
-        });
-
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newPassword.getText().toString().trim().equals("")) {
-                    if (newPassword.getText().toString().trim().length() < 6) {
-                        newPassword.setError("Password too short, enter minimum 6 characters");
-                        progressBar.setVisibility(View.GONE);
-                    } else {
-                        user.updatePassword(newPassword.getText().toString().trim())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(MainActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
-                                            signOut();
-                                            progressBar.setVisibility(View.GONE);
-                                        } else {
-                                            Toast.makeText(MainActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
-                                            progressBar.setVisibility(View.GONE);
-                                        }
-                                    }
-                                });
-                    }
-                } else if (newPassword.getText().toString().trim().equals("")) {
-                    newPassword.setError("Enter password");
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-
-        btnRemoveUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null) {
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(MainActivity.this, SignupActivity.class));
-                                        finish();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                }
-            }
-        });
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setDataToView(FirebaseUser user) {
-
-        email.setText("User Email: " + user.getEmail());
-
-
-    }
-   // this listener will be called when there is change in firebase user session
-    FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user == null) {
-                // user auth state is changed - user is null
-                // launch login activity
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-            } else {
-                setDataToView(user);
-
-            }
-        }
-
-
-    };
-
-    //sign out method
-    public void signOut() {
-        auth.signOut();
-
-
-// this listener will be called when there is change in firebase user session
-        FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();
-                }
-            }
-        };
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        auth.addAuthStateListener(authListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (authListener != null) {
-            auth.removeAuthStateListener(authListener);
-        }
-    }
-  */
 }
-
-// and yesss we have made it. WE HAVE MADE AN APP WITH LOGIN AND REGISTRATION
-// PLEASE DO LIKE AND SUBSCRIBE FOR MORE.
-//THANK YOU
 
 
