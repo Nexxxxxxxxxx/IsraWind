@@ -53,6 +53,7 @@ public class report_wind extends AppCompatActivity {
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust, comment);
 
         UpdateLastWindReport(windReport);
+        UpdateAllWindReports(windReport);
 
         ShowReportStatus();
     }
@@ -79,15 +80,32 @@ public class report_wind extends AppCompatActivity {
                 .show();
     }
 
+    public void UpdateAllWindReports(WindReportDTO windReport)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.AllWindReportsReference);
+        DatabaseReference locationRef = windReportDatabase.child(windReport.location);
+
+        Map<String,Object> taskMap = new HashMap<String,Object>();
+
+        taskMap.put("windSpeed", windReport.windSpeed);
+        taskMap.put("gustSpeed", windReport.gustSpeed);
+        taskMap.put("reportTime", windReport.reportTime);
+        taskMap.put("comment", windReport.comment);
+        taskMap.put("windDirection", windReport.windDirection);
+        taskMap.put("location", windReport.location);
+
+        String id = locationRef.push().getKey();
+        locationRef.child(id).setValue(taskMap);
+    }
+
+
     public void UpdateLastWindReport(WindReportDTO windReport)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
 
-        //String id = windReportDatabase.push().getKey();
-        //windReportDatabase.child(id).setValue(windReport);
-
-        DatabaseReference locationRef = windReportDatabase.child(Integer.toString(IsraWindUtils.GetLocationID(windReport.location)));
+        DatabaseReference locationRef = windReportDatabase.child(windReport.location);
 
         Map<String,Object> taskMap = new HashMap<String,Object>();
 
