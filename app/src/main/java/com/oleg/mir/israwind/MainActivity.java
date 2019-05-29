@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     String windDirection = ds.child("windDirection").getValue(String.class);
                     String reportTime = ds.child("reportTime").getValue(String.class);
 
-                    Integer locationID =  Arrays.asList(IsraWindConsts.Location).indexOf(location);
+                    Integer locationID =  IsraWindUtils.GetLocationID(location);
 
                     if(locationID != -1)
                     {
