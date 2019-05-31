@@ -90,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            tableRowArray[j].setId(j);
+
+            tableRowArray[j].setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick( View v ) {
+                    int id = v.getId();
+                    ShowReportsPerLocation(IsraWindConsts.Location[id]);
+                }
+            } );
+
             t1.addView(tableRowArray[j]);
         }
 
@@ -147,6 +157,14 @@ public class MainActivity extends AppCompatActivity {
     public void AddWindReport(View v)
     {
         Intent intent = new Intent(getApplicationContext(), report_wind.class);
+        startActivity(intent);
+    }
+
+    public void ShowReportsPerLocation(String location)
+    {
+        Intent intent = new Intent(getApplicationContext(), ReportsPerLaction.class);
+
+        intent.putExtra("location", location);
         startActivity(intent);
     }
 }
