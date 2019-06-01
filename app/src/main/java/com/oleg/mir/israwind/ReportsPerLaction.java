@@ -33,15 +33,13 @@ public class ReportsPerLaction extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         location = b.getString("location");
+        setTitle(location+" Reports");
 
         t1 = (TableLayout)findViewById(R.id.reportsPerLocationTableId);
         t1.setColumnStretchable(0,true);
         t1.setColumnStretchable(1,true);
         t1.setColumnStretchable(2,true);
         t1.setColumnStretchable(3,true);
-
-
-        SetTitle();
 
         windReportDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,13 +67,6 @@ public class ReportsPerLaction extends AppCompatActivity {
             }
             });
          }
-
-
-    private void SetTitle()
-    {
-        TextView textView =  (TextView)findViewById(R.id.locationTextId);
-        textView.setText(location + " Reports");
-    }
 
     private void SetReportsTable(WindReportDTO windReportDTO)
     {

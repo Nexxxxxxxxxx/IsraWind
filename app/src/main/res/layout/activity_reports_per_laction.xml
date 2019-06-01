@@ -6,28 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ReportsPerLaction">
 
-    <TextView
-        android:id="@+id/locationTextId"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="146dp"
-        android:layout_marginBottom="16dp"
-        android:text="Reports"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/reportsPerLocationTableId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TableLayout
         android:id="@+id/reportsPerLocationTableId"
         android:layout_width="358dp"
         android:layout_height="434dp"
-        android:layout_below="@+id/locationTextId"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"

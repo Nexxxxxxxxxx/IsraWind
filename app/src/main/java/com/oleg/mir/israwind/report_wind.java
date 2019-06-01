@@ -27,6 +27,7 @@ public class report_wind extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_wind);
+        setTitle("Report a Wind");
 
         directionsDropdown = findViewById(R.id.spinner_wind_direction);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.WindDirections);
