@@ -50,7 +50,7 @@ public class report_wind extends AppCompatActivity {
         String direction = directionsDropdown.getSelectedItem().toString();
         String comment = commentEditText.getText().toString();
 
-        WindReportDTO windReport = new WindReportDTO(windSpeed, direction, location, gust, comment);
+        WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment);
 
         UpdateLastWindReport(windReport);
         UpdateAllWindReports(windReport);

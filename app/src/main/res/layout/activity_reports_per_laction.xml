@@ -18,13 +18,13 @@
         android:layout_marginBottom="16dp"
         android:text="Reports"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/reportsPerLocationTableId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout2"
+        android:id="@+id/reportsPerLocationTableId"
         android:layout_width="358dp"
         android:layout_height="434dp"
         android:layout_below="@+id/locationTextId"
