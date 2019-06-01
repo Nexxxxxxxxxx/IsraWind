@@ -89,8 +89,8 @@ public class ReportsPerLaction extends AppCompatActivity {
 
 
         tableColArray[0].setText(String.valueOf(windReportDTO.windSpeed)+"-"+String.valueOf(windReportDTO.gustSpeed));
-        tableColArray[1].setText(windReportDTO.windDirection);
-        tableColArray[2].setText(windReportDTO.reportTime);
+        tableColArray[1].setText("| "+windReportDTO.windDirection);
+        tableColArray[2].setText("| "+windReportDTO.reportTime);
 
         tr.addView(tableColArray[0]);
         tr.addView(tableColArray[1]);

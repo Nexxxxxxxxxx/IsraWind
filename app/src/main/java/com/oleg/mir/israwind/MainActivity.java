@@ -160,6 +160,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void ModifyNotifications(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), ScrollingActivityModifyNotifications.class);
+        startActivity(intent);
+    }
     public void ShowReportsPerLocation(String location)
     {
         Intent intent = new Intent(getApplicationContext(), ReportsPerLaction.class);

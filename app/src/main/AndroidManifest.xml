@@ -22,7 +22,11 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AccountActivity.SignupActivity" />
         <activity android:name=".AccountActivity.ResetPassword" />
-        <activity android:name=".ReportsPerLaction"></activity>
+        <activity android:name=".ReportsPerLaction" />
+        <activity
+            android:name=".ScrollingActivityModifyNotifications"
+            android:label="@string/title_activity_scrolling_modify_notifications"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

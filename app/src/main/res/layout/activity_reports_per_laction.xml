@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="Wind"
                 android:layout_weight="1"
+                android:background="@color/btn_login_bg"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="70dp" />
 
@@ -52,6 +53,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/btn_login_bg"
                 android:layout_weight="1"
                 android:text="| Direction" />
 
@@ -60,12 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/btn_login_bg"
                 android:text="| Report Time" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/btn_login_bg"
                 android:layout_weight="1"
                 android:text="| User" />
 
