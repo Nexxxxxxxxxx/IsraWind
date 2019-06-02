@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     TextView scr0,scr1, scr2,scr3,scr4;
-    TableLayout t1;
+    TableLayout t1,t2;
     TableRow tr;
 
     public AllWindReports allWindReports;
@@ -63,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
         t1.setColumnStretchable(1,true);
         t1.setColumnStretchable(2,true);
         t1.setColumnStretchable(3,true);
+
+        t2 = (TableLayout)findViewById(R.id.t2);
+        t2.setColumnStretchable(0,true);
+        t2.setColumnStretchable(1,true);
+        t2.setColumnStretchable(2,true);
+        t2.setColumnStretchable(3,true);
 
         TableRow [] tableRowArray = new TableRow[IsraWindConsts.Location.length];
         TextView[] tableColArray = new TextView[4];
@@ -100,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } );
 
-            t1.addView(tableRowArray[j]);
+            t2.addView(tableRowArray[j]);
         }
 
 
