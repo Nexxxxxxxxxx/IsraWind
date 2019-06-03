@@ -6,4 +6,5 @@ public final class IsraWindConsts {
 
     public static final String LastWindReportReference = "LastWindReport";
     public static final String AllWindReportsReference = "AllWindReports";
+    public static final String UsersInfoReference = "UsersInfoReference";
 }
