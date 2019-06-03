@@ -35,7 +35,15 @@
             android:textColor="@android:color/white" />
 
 
-
+        <EditText
+            android:id="@+id/nicknameID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:maxEms="12"
+            android:minEms="6"
+            android:hint="Nickname for reports"
+            android:textColor="@android:color/white" />
 
         <EditText
             android:id="@+id/password"

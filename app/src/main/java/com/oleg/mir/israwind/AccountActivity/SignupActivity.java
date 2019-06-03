@@ -20,7 +20,7 @@ import com.oleg.mir.israwind.MainActivity;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;     //hit option + enter if you on mac , for windows hit ctrl + enter
+    private EditText inputEmail, inputPassword,inputNickname;     //hit option + enter if you on mac , for windows hit ctrl + enter
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -37,6 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        inputNickname = (EditText) findViewById(R.id.nicknameID);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
@@ -60,19 +61,35 @@ public class SignupActivity extends AppCompatActivity {
 
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
+                String nickname = inputNickname.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter an email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter a password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(nickname)) {
+                    Toast.makeText(getApplicationContext(), "Enter a Nickname!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (nickname.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "Nickname too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (nickname.length() > 12) {
+                    Toast.makeText(getApplicationContext(), "Nickname too long, enter maximum 12 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
