@@ -10,8 +10,7 @@
         android:id="@+id/t1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="28dp">
+        android:layout_marginStart="0dp">
 
         <TableRow
             android:id="@+id/tablerow1"
@@ -80,8 +79,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent">
 
                 </TableRow>
 
