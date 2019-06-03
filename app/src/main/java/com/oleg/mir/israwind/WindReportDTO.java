@@ -15,8 +15,9 @@ public class WindReportDTO {
     public String reportTime;
     public String location;
     public String windDirection;
+    public String userReported;
 
-    WindReportDTO(int _windSpeed, String _windDirection,String _reportTime, String _location, int _gustSpeed, String _comment)
+    WindReportDTO(int _windSpeed, String _windDirection,String _reportTime, String _location, int _gustSpeed, String _comment,String _userReported)
     {
         windSpeed = _windSpeed;
         windDirection = _windDirection;
@@ -33,6 +34,7 @@ public class WindReportDTO {
         comment = _comment;
         location = _location;
         gustSpeed = _gustSpeed;
+        userReported=_userReported;
     }
 
     private String GetCurrentDateTime()

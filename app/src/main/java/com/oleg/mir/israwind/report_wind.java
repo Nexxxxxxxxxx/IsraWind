@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class report_wind extends AppCompatActivity {
     Spinner locationsDropdown;
     Spinner directionsDropdown;
     EditText commentEditText;
+    private String auth;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,8 @@ public class report_wind extends AppCompatActivity {
         String direction = directionsDropdown.getSelectedItem().toString();
         String comment = commentEditText.getText().toString();
 
-        WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment);
+        auth = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment,auth);
 
         UpdateLastWindReport(windReport);
         UpdateAllWindReports(windReport);
@@ -94,6 +97,7 @@ public class report_wind extends AppCompatActivity {
         taskMap.put("comment", windReport.comment);
         taskMap.put("windDirection", windReport.windDirection);
         taskMap.put("location", windReport.location);
+        taskMap.put("userReported", windReport.userReported);
 
         String id = locationRef.push().getKey();
         locationRef.child(id).setValue(taskMap);
@@ -115,6 +119,7 @@ public class report_wind extends AppCompatActivity {
         taskMap.put("comment", windReport.comment);
         taskMap.put("windDirection", windReport.windDirection);
         taskMap.put("location", windReport.location);
+        taskMap.put("userReported", windReport.userReported);
         
         locationRef.updateChildren(taskMap);
     }

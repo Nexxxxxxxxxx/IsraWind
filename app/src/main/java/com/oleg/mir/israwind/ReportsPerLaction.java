@@ -53,8 +53,9 @@ public class ReportsPerLaction extends AppCompatActivity {
                     String windDirection = reportItem.child("windDirection").getValue(String.class);
                     String reportTime = reportItem.child("reportTime").getValue(String.class);
                     String comment = reportItem.child("comment").getValue(String.class);
+                    String userReported = reportItem.child("userReported").getValue(String.class);
 
-                    WindReportDTO windReport = new WindReportDTO(windSpeed, windDirection,reportTime, location, gustSpeed, comment);
+                    WindReportDTO windReport = new WindReportDTO(windSpeed, windDirection,reportTime, location, gustSpeed, comment,userReported);
 
                     SetReportsTable(windReport);
 
@@ -82,6 +83,7 @@ public class ReportsPerLaction extends AppCompatActivity {
         tableColArray[0].setText(String.valueOf(windReportDTO.windSpeed)+"-"+String.valueOf(windReportDTO.gustSpeed));
         tableColArray[1].setText("| "+windReportDTO.windDirection);
         tableColArray[2].setText("| "+windReportDTO.reportTime);
+        tableColArray[3].setText("| "+windReportDTO.userReported);
 
         tr.addView(tableColArray[0]);
         tr.addView(tableColArray[1]);
