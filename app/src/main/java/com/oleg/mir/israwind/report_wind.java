@@ -52,7 +52,7 @@ public class report_wind extends AppCompatActivity {
         String direction = directionsDropdown.getSelectedItem().toString();
         String comment = commentEditText.getText().toString();
 
-        auth = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        auth = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment,auth);
 
         UpdateLastWindReport(windReport);
