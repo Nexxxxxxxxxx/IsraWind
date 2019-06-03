@@ -46,6 +46,7 @@ public class ReportsPerLaction extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot allReports = dataSnapshot.child(location);
 
+
                 for(DataSnapshot reportItem : allReports.getChildren()) {
 
                     Integer windSpeed = reportItem.child("windSpeed").getValue(Integer.class);
@@ -90,7 +91,7 @@ public class ReportsPerLaction extends AppCompatActivity {
         tr.addView(tableColArray[2]);
         tr.addView(tableColArray[3]);
 
-        t1.addView(tr);
+        t1.addView(tr,1);
     }
 
 
