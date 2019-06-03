@@ -25,6 +25,7 @@
                 android:layout_weight="0.4"
                 android:background="@color/btn_login_bg"
                 android:text="Location"
+                android:textStyle="bold"
                 tools:text="Location" />
 
             <TextView
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.15"
                 android:background="@color/btn_login_bg"
-                android:text="| Wind" />
+                android:text="| Wind"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/directionTextViewId"
@@ -41,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
                 android:background="@color/btn_login_bg"
-                android:text="| Direction" />
+                android:text="| Direction"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/timeTextViewId"
@@ -49,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:background="@color/btn_login_bg"
-                android:text="| Report Time" />
+                android:text="| Report Time"
+                android:textStyle="bold" />
 
         </TableRow>
 
