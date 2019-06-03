@@ -1,36 +1,24 @@
 package com.oleg.mir.israwind;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.oleg.mir.israwind.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.oleg.mir.israwind.AccountActivity.LoginActivity;
-import com.oleg.mir.israwind.AccountActivity.SignupActivity;
 
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText oldEmail, password, newPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-
 
     TextView scr0,scr1, scr2,scr3,scr4;
     TableLayout t1,t2;
@@ -59,16 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         t1 = (TableLayout)findViewById(R.id.t1);
-        t1.setColumnStretchable(0,true);
-        t1.setColumnStretchable(1,true);
-        t1.setColumnStretchable(2,true);
-        t1.setColumnStretchable(3,true);
-
         t2 = (TableLayout)findViewById(R.id.t2);
-        t2.setColumnStretchable(0,true);
-        t2.setColumnStretchable(1,true);
-        t2.setColumnStretchable(2,true);
-        t2.setColumnStretchable(3,true);
+
+        int width = getScreenWidth();
 
         TableRow [] tableRowArray = new TableRow[IsraWindConsts.Location.length];
         TextView[] tableColArray = new TextView[4];
@@ -83,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 if(i==0)
                 {
                     tableColArray[i].setText(IsraWindConsts.Location[j]);
+                    //tableColArray[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.4f));
                 }
                 else
                 {
@@ -92,7 +73,26 @@ public class MainActivity extends AppCompatActivity {
                 tableColArray[i].setTextSize(15);
                 tableColArray[i].setId((j+1)*10+(i+1));
 
+
+                if(i==0)
+                {
+                    tableColArray[0].setWidth((int)Math.round(width*0.4));
+                }
+                else if(i==1)
+                {
+                    tableColArray[1].setWidth((int)Math.round(width*0.15));
+                }
+                else if(i==2)
+                {
+                    tableColArray[2].setWidth((int)Math.round(width*0.2));
+                }
+                else if(i==3)
+                {
+                    tableColArray[3].setWidth((int)Math.round(width*0.25));
+                }
+
                 tableRowArray[j].addView(tableColArray[i]);
+
 
             }
 
@@ -158,6 +158,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public int getScreenWidth()
+    {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        return width;
     }
 
     public void AddWindReport(View v)
