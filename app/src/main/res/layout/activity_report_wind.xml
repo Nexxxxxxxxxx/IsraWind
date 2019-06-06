@@ -198,7 +198,7 @@
                 android:id="@+id/spinner_location_dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp" />
+                />
         </TableRow>
 
         <TableRow

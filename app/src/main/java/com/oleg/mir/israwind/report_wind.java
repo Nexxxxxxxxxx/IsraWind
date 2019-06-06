@@ -35,7 +35,8 @@ public class report_wind extends AppCompatActivity {
         setTitle("Report a Wind");
 
         locationsDropdown = findViewById(R.id.spinner_location_dropdown);
-        ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.Location);
+        ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, IsraWindConsts.Location);
+        locationsDropdownAdapter.setDropDownViewResource(R.layout.spinner_item);
         locationsDropdown.setAdapter(locationsDropdownAdapter);
 
         windSpeedEditText = findViewById(R.id.windSpeedID);
