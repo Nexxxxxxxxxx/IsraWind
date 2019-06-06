@@ -65,20 +65,19 @@ public class MainActivity extends AppCompatActivity {
                 if(i==0)
                 {
                     tableColArray[i].setText(IsraWindConsts.Location[j]);
-                    //tableColArray[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.4f));
+                    tableColArray[i].setTextSize(IsraWindConsts.MainReportTextSize);
                 }
                 else
                 {
                     tableColArray[i].setText("|");
                 }
 
-                tableColArray[i].setTextSize(15);
                 tableColArray[i].setId((j+1)*10+(i+1));
 
 
                 if(i==0)
                 {
-                    tableColArray[0].setWidth((int)Math.round(width*0.4));
+                    tableColArray[0].setWidth((int)Math.round(width*0.35));
                 }
                 else if(i==1)
                 {
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(i==2)
                 {
-                    tableColArray[2].setWidth((int)Math.round(width*0.2));
+                    tableColArray[2].setWidth((int)Math.round(width*0.25));
                 }
                 else if(i==3)
                 {
@@ -138,17 +137,17 @@ public class MainActivity extends AppCompatActivity {
                         locationID = locationID*10;
                         i=locationID;
 
-                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+1), "id", getPackageName()));
-                        textView.setText(location);
-
                         textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+2) , "id", getPackageName()));
                         textView.setText("| " +windSpeed + "-" + gustSpeed);
+                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
 
                         textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+3) , "id", getPackageName()));
                         textView.setText("| " +windDirection);
+                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
 
                         textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+4) , "id", getPackageName()));
                         textView.setText("| " +reportTime.substring(8));
+                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
 
                         i++;
                     }

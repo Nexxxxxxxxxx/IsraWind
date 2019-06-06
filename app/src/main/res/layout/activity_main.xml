@@ -22,9 +22,10 @@
                 android:id="@+id/locationTextViewID"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.35"
                 android:background="@color/btn_login_bg"
                 android:text="Location"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 tools:text="Location" />
 
@@ -35,15 +36,17 @@
                 android:layout_weight="0.15"
                 android:background="@color/btn_login_bg"
                 android:text="| Wind"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/directionTextViewId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:background="@color/btn_login_bg"
                 android:text="| Direction"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -52,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:background="@color/btn_login_bg"
-                android:text="| Report Time"
+                android:text="| Time"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </TableRow>
