@@ -2,11 +2,17 @@ package com.oleg.mir.israwind;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,23 +22,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.app.PendingIntent.getActivity;
+
 public class report_wind extends AppCompatActivity {
     EditText windSpeedEditText;
     EditText gustEditText;
     Spinner locationsDropdown;
-    Spinner directionsDropdown;
     EditText commentEditText;
-    private String auth;;
+    private String auth;
+    Drawable mDefaultButtonColor;
+
+    private boolean nwselected=false,nselected=false,neselected=false,wselected=false,eselected=false,swselected=false,sselected=false,seselected=false;
+    private String currentDirection="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_wind);
         setTitle("Report a Wind");
-
-        directionsDropdown = findViewById(R.id.spinner_wind_direction);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.WindDirections);
-        directionsDropdown.setAdapter(adapter);
 
         locationsDropdown = findViewById(R.id.spinner_location_dropdown);
         ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, IsraWindConsts.Location);
@@ -42,6 +49,205 @@ public class report_wind extends AppCompatActivity {
         gustEditText = findViewById(R.id.gustID);
         commentEditText = findViewById(R.id.commentsID2);
 
+        Button nw = findViewById(R.id.NWID);
+        mDefaultButtonColor = ((Drawable) nw.getBackground());
+
+    }
+
+    public void NWSelection(View v)
+    {
+        Button nw = findViewById(R.id.NWID);
+
+        if(!nwselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "NW ↘";
+            nwselected = true;
+        }
+        else
+        {
+            nwselected = false;
+        }
+
+        SetButtonsCollor(nw,!nwselected);
+    }
+
+    public void NSelection(View v)
+    {
+        Button n = findViewById(R.id.NID);
+
+        if(!nselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "N ↓";
+            nselected = true;
+        }
+        else
+        {
+            nselected = false;
+        }
+
+        SetButtonsCollor(n,!nselected);
+    }
+
+    public void NESelection(View v)
+    {
+        Button n = findViewById(R.id.NEID);
+
+        if(!neselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "NE ↙";
+            neselected = true;
+        }
+        else
+        {
+            neselected = false;
+        }
+
+        SetButtonsCollor(n,!neselected);
+    }
+
+    public void WSelection(View v)
+    {
+        Button n = findViewById(R.id.WID);
+
+        if(!wselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "W →";
+            wselected = true;
+        }
+        else
+        {
+            wselected = false;
+        }
+
+        SetButtonsCollor(n,!wselected);
+    }
+
+    public void ESelection(View v)
+    {
+        Button n = findViewById(R.id.EID);
+
+        if(!eselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "E ←";
+            eselected = true;
+        }
+        else
+        {
+            eselected = false;
+        }
+
+        SetButtonsCollor(n,!eselected);
+    }
+
+    public void SWSelection(View v)
+    {
+        Button n = findViewById(R.id.SWID);
+
+        if(!swselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "SW ↗";
+            swselected = true;
+        }
+        else
+        {
+            swselected = false;
+        }
+
+        SetButtonsCollor(n,!swselected);
+    }
+
+    public void SSelection(View v)
+    {
+        Button n = findViewById(R.id.SID);
+
+        if(!sselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "S ↑";
+            sselected = true;
+        }
+        else
+        {
+            sselected = false;
+        }
+
+        SetButtonsCollor(n,!sselected);
+    }
+
+    public void SESelection(View v)
+    {
+        Button n = findViewById(R.id.SEID);
+
+        if(!seselected)
+        {
+            SetAllDirectionsToFalse();
+            currentDirection = "SE ↖";
+            seselected = true;
+        }
+        else
+        {
+            seselected = false;
+        }
+
+        SetButtonsCollor(n,!seselected);
+    }
+
+    private void SetAllDirectionsToFalse()
+    {
+        nwselected=false;
+        nselected=false;
+        neselected=false;
+        wselected=false;
+        eselected=false;
+        swselected=false;
+        sselected=false;
+        seselected=false;
+    }
+
+    private void SetButtonsCollor(Button b, boolean selection)
+    {
+        if(!selection)
+        {
+            SetBackgroundForAllDirectionButtons();
+            b.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+        else
+        {
+            b.setBackground(mDefaultButtonColor);
+        }
+    }
+
+    private void SetBackgroundForAllDirectionButtons()
+    {
+        Button directionButton = findViewById(R.id.NWID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.NID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.NEID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.WID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.EID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.SWID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.SID);
+        directionButton.setBackground(mDefaultButtonColor);
+
+        directionButton = findViewById(R.id.SEID);
+        directionButton.setBackground(mDefaultButtonColor);
     }
 
     public void ReportWind(View v)
@@ -49,7 +255,7 @@ public class report_wind extends AppCompatActivity {
         int windSpeed = Integer.parseInt(windSpeedEditText.getText().toString());
         int gust = Integer.parseInt(gustEditText.getText().toString());
         String location = locationsDropdown.getSelectedItem().toString();
-        String direction = directionsDropdown.getSelectedItem().toString();
+        String direction = currentDirection;
         String comment = commentEditText.getText().toString();
 
         auth = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
