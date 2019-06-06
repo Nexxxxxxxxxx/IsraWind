@@ -99,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
             tableRowArray[j].setId(j);
 
+            if(j%2==0)
+            {
+                tableRowArray[j].setBackgroundColor(0xFFF0F8FF);
+            }
+            else
+            {
+                tableRowArray[j].setBackgroundColor(0xFFF8F8FF);
+            }
+
+
             tableRowArray[j].setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick( View v ) {
