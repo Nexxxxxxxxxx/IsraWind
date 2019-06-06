@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void AddWindReport(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), report_wind.class);
+        Intent intent = new Intent(getApplicationContext(), ReportWind.class);
         startActivity(intent);
     }
 

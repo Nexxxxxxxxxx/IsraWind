@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class report_wind extends AppCompatActivity {
+public class ReportWind extends AppCompatActivity {
     EditText windSpeedEditText;
     EditText gustEditText;
     Spinner locationsDropdown;
@@ -263,7 +263,7 @@ public class report_wind extends AppCompatActivity {
 
     private void ShowReportStatus()
     {
-        new AlertDialog.Builder(report_wind.this)
+        new AlertDialog.Builder(ReportWind.this)
                 .setTitle("Report Status")
                 .setMessage("Your Report was added successfully!")
 
