@@ -2,11 +2,7 @@ package com.oleg.mir.israwind;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,13 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.app.PendingIntent.getActivity;
 
 public class report_wind extends AppCompatActivity {
     EditText windSpeedEditText;
