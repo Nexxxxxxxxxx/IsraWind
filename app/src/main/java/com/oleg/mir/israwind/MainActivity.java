@@ -1,19 +1,17 @@
 package com.oleg.mir.israwind;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,18 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-
 public class MainActivity extends AppCompatActivity {
-
-    private Button btnChangePassword, btnRemoveUser,
-            changePassword, remove, signOut;
-    private TextView email;
-
-    private EditText oldEmail, password, newPassword;
-    private ProgressBar progressBar;
-    private FirebaseAuth auth;
-
-    TextView scr0,scr1, scr2,scr3,scr4;
     TableLayout t1,t2;
     TableRow tr;
 
@@ -40,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
+
     Object allReports;
 
     @Override
@@ -170,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void SetClickAnimation(View v)
@@ -181,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
         return width;
