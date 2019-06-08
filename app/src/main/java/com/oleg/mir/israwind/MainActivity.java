@@ -19,6 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity {
     TableLayout t1,t2;
     TableRow tr;
@@ -29,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
 
     Object allReports;
+    Date currentTimeMinusGranularity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setTitle("IsraWind - Last 24h Reports");
 
         t1 = (TableLayout)findViewById(R.id.t1);
         t2 = (TableLayout)findViewById(R.id.t2);
@@ -42,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         TableRow [] tableRowArray = new TableRow[IsraWindConsts.Location.length];
         TextView[] tableColArray = new TextView[4];
+
+        SetCurrentTimeMinusGranularity();
 
         for(int j=0; j < IsraWindConsts.Location.length ; j++)
         {
@@ -127,29 +140,39 @@ public class MainActivity extends AppCompatActivity {
                     String windDirection = ds.child("windDirection").getValue(String.class);
                     String reportTime = ds.child("reportTime").getValue(String.class);
 
-                    Integer locationID =  IsraWindUtils.GetLocationID(location);
-
-                    if(locationID != -1)
-                    {
-                        locationID=locationID+1;
-                        locationID = locationID*10;
-                        i=locationID;
-
-                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+2) , "id", getPackageName()));
-                        textView.setText("| " +windSpeed + "-" + gustSpeed);
-                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
-
-                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+3) , "id", getPackageName()));
-                        textView.setText("| " +windDirection);
-                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
-
-                        textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+4) , "id", getPackageName()));
-                        textView.setText("| " +reportTime.substring(8));
-                        textView.setTextSize(IsraWindConsts.MainReportTextSize);
-
-                        i++;
+                    Date reportTimeDateFormat = currentTimeMinusGranularity;
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                        reportTimeDateFormat = dateFormat.parse(reportTime);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
 
+                    if(reportTimeDateFormat.after(currentTimeMinusGranularity))
+                    {
+                        Integer locationID =  IsraWindUtils.GetLocationID(location);
+
+                        if(locationID != -1)
+                        {
+                            locationID=locationID+1;
+                            locationID = locationID*10;
+                            i=locationID;
+
+                            textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+2) , "id", getPackageName()));
+                            textView.setText("| " +windSpeed + "-" + gustSpeed);
+                            textView.setTextSize(IsraWindConsts.MainReportTextSize);
+
+                            textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+3) , "id", getPackageName()));
+                            textView.setText("| " +windDirection);
+                            textView.setTextSize(IsraWindConsts.MainReportTextSize);
+
+                            textView = (TextView) (TextView)findViewById(getResources().getIdentifier(Integer.toString(i+4) , "id", getPackageName()));
+                            textView.setText("| " +reportTime.substring(8));
+                            textView.setTextSize(IsraWindConsts.MainReportTextSize);
+
+                            i++;
+                        }
+                    }
                 }
             }
 
@@ -159,6 +182,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void SetCurrentTimeMinusGranularity()
+    {
+        try {
+            Calendar cal = Calendar.getInstance();
+            String  currentTime = IsraWindUtils.GetCurrentDateTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            cal.setTime(dateFormat.parse(currentTime));
+            cal.add(Calendar.DATE, IsraWindConsts.reports_time_granularity_in_days);
+            currentTimeMinusGranularity = cal.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void SetClickAnimation(View v)

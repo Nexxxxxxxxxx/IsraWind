@@ -9,4 +9,6 @@ public final class IsraWindConsts {
     public static final String UsersInfoReference = "UsersInfoReference";
 
     public static int MainReportTextSize = 18;
+
+    public static int reports_time_granularity_in_days = -1;
 }
