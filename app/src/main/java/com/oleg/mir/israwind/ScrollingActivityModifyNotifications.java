@@ -91,7 +91,15 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
             {
                 Log.d("myTag", "location: "+ locationText);
                 Object b=allNotifications.get(locationText);
-                sw.setChecked( StringToBoolean(b.toString()));
+                if(b == null)
+                {
+                    sw.setChecked(false);
+                }
+                else
+                {
+                    sw.setChecked( StringToBoolean(b.toString()));
+                }
+
             }
 
 
