@@ -48,22 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseApp.initializeApp(this);
-
         checkPlayServices();
-
-        FirebaseMessaging.getInstance().subscribeToTopic("Akko")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "subscribed";
-                        if (!task.isSuccessful()) {
-                            msg = "failed";
-                        }
-                        Log.d("123", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
 
         setTitle("IsraWind - Last 24h Reports");
 

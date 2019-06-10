@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +31,9 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
 
     DatabaseReference locationRef;
     Map<String,String> allNotifications;
+    String locationNotification;
+    Map<String,Object> taskMap;
+    String locationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +123,54 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
             sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    String locationNotification = buttonView.getText().toString();
+                    locationNotification = buttonView.getText().toString();
 
-                    Map<String,Object> taskMap = new HashMap<String,Object>();
+                    taskMap = new HashMap<String,Object>();
                     taskMap.put(locationNotification, isChecked);
 
-                    locationRef.updateChildren(taskMap);
+                    locationId = "location"+IsraWindUtils.GetLocationID(locationNotification);
+                    if(isChecked)
+                    {
+                        FirebaseMessaging.getInstance().subscribeToTopic(locationId)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg;
+                                    if(task.isSuccessful())
+                                    {
+                                        locationRef.updateChildren(taskMap);
+                                        msg = "Subscribed to: "+locationNotification;
+                                    }
+                                    else
+                                        {
+                                        msg = "Failed to Subscribe";
+                                    }
+                                    Log.d("LocationNotification", msg);
+                                    Toast.makeText(ScrollingActivityModifyNotifications.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    }
+                    else
+                    {
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(locationId)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg;
+                                    if(task.isSuccessful())
+                                    {
+                                        locationRef.updateChildren(taskMap);
+                                        msg = "Unsubscribed from: "+locationNotification;
+                                    }
+
+                                    else{
+                                        msg = "Failed to Unsubscribe";
+                                    }
+                                    Log.d("LocationNotification", msg);
+                                    Toast.makeText(ScrollingActivityModifyNotifications.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    }
                 }
             });
         }
