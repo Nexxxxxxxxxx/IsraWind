@@ -128,7 +128,7 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
                     taskMap = new HashMap<String,Object>();
                     taskMap.put(locationNotification, isChecked);
 
-                    locationId = "location"+IsraWindUtils.GetLocationID(locationNotification);
+                    locationId = IsraWindConsts.locationMap.get(locationNotification).toString();
                     if(isChecked)
                     {
                         FirebaseMessaging.getInstance().subscribeToTopic(locationId)
