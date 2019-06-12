@@ -267,6 +267,11 @@ public class ReportWind extends AppCompatActivity {
         int windSpeed = Integer.parseInt(windString);
         int gust = Integer.parseInt(gustString);
 
+        if(gust <= 0 || windSpeed <= 0)
+        {
+            Toast.makeText(getApplicationContext(), "Wind speed and gust must me greater that 0", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(gust<windSpeed)
         {
             Toast.makeText(getApplicationContext(), "Gust must be greater or equal than windspeed", Toast.LENGTH_SHORT).show();
