@@ -6,11 +6,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -246,11 +249,39 @@ public class ReportWind extends AppCompatActivity {
 
     public void ReportWind(View v)
     {
-        int windSpeed = Integer.parseInt(windSpeedEditText.getText().toString());
-        int gust = Integer.parseInt(gustEditText.getText().toString());
+        String windString = windSpeedEditText.getText().toString();
+        String gustString = gustEditText.getText().toString();
         String location = locationsDropdown.getSelectedItem().toString();
         String direction = currentDirection;
         String comment = commentEditText.getText().toString();
+
+        if (TextUtils.isEmpty(windString+"")) {
+            Toast.makeText(getApplicationContext(), "Enter a wind speed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(gustString+"")) {
+            Toast.makeText(getApplicationContext(), "Enter a gust speed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int windSpeed = Integer.parseInt(windString);
+        int gust = Integer.parseInt(gustString);
+
+        if(gust<windSpeed)
+        {
+            Toast.makeText(getApplicationContext(), "Gust must be greater or equal than windspeed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(location+"")) {
+            Toast.makeText(getApplicationContext(), "Enter a location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(direction+"")) {
+            Toast.makeText(getApplicationContext(), "Enter a wind direction", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
 
         auth = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment,auth);
