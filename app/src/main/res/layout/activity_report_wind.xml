@@ -9,10 +9,10 @@
 
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -176,6 +176,12 @@
             </TableLayout>
         </TableRow>
 
+        <TableRow>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -204,37 +210,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/commentsID1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/commentsID2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Write Comments Here" />
-            </android.support.design.widget.TextInputLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="124dp">
-
-            <Button
-                android:id="@+id/button2"
+            <EditText
+                android:id="@+id/commentID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:onClick="ReportWind"
-                android:text="Report"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:ems="10"
+                android:hint="Write comment here"
+                android:inputType="textMultiLine"
+                android:lines="3" />
+
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="ReportWind"
+        android:text="Report"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -44,7 +44,7 @@ public class ReportWind extends AppCompatActivity {
 
         windSpeedEditText = findViewById(R.id.windSpeedID);
         gustEditText = findViewById(R.id.gustID);
-        commentEditText = findViewById(R.id.commentsID2);
+        commentEditText = findViewById(R.id.commentID);
 
         Button nw = findViewById(R.id.NWID);
         mDefaultButtonColor = ((Drawable) nw.getBackground());
