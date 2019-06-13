@@ -116,7 +116,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/wind_direction_button"
                                 android:onClick="NSelection"
-                                android:text="N ↓" />
+                                android:text="N ⬇ " />
 
                             <Button
                                 android:id="@+id/NEID"
@@ -137,7 +137,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/wind_direction_button"
                                 android:onClick="WSelection"
-                                android:text="W →" />
+                                android:text="W ➡" />
 
                             <Button
                                 android:id="@+id/button8"
@@ -151,7 +151,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/wind_direction_button"
                                 android:onClick="ESelection"
-                                android:text="E ←" />
+                                android:text="E ⬅" />
                         </TableRow>
 
                         <TableRow
@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/wind_direction_button"
                                 android:onClick="SSelection"
-                                android:text="S ↑" />
+                                android:text="S ⬆" />
 
                             <Button
                                 android:id="@+id/SEID"

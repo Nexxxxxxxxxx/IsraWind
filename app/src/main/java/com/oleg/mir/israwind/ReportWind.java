@@ -76,7 +76,7 @@ public class ReportWind extends AppCompatActivity {
         if(!nselected)
         {
             SetAllDirectionsToFalse();
-            currentDirection = "N ↓";
+            currentDirection = "N ⬇";
             nselected = true;
         }
         else
@@ -112,7 +112,7 @@ public class ReportWind extends AppCompatActivity {
         if(!wselected)
         {
             SetAllDirectionsToFalse();
-            currentDirection = "W →";
+            currentDirection = "W ➡";
             wselected = true;
         }
         else
@@ -130,7 +130,7 @@ public class ReportWind extends AppCompatActivity {
         if(!eselected)
         {
             SetAllDirectionsToFalse();
-            currentDirection = "E ←";
+            currentDirection = "E ⬅";
             eselected = true;
         }
         else
@@ -166,7 +166,7 @@ public class ReportWind extends AppCompatActivity {
         if(!sselected)
         {
             SetAllDirectionsToFalse();
-            currentDirection = "S ↑";
+            currentDirection = "S ⬆";
             sselected = true;
         }
         else
