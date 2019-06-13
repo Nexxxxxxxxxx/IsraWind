@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
 
-    Object allReports;
     Date currentTimeMinusGranularity;
 
     @Override
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseApp.initializeApp(this);
-        checkPlayServices();
+        //checkPlayServices();
 
         setTitle("IsraWind - Last 24h Reports");
 
@@ -128,13 +127,9 @@ public class MainActivity extends AppCompatActivity {
             t2.addView(tableRowArray[j]);
         }
 
-
-
-        //windReportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         windReportDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allReports = dataSnapshot.getValue();
                 int i = 1;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
