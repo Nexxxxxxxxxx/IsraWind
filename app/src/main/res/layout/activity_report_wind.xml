@@ -217,7 +217,8 @@
                 android:ems="10"
                 android:hint="Write comment here"
                 android:inputType="textMultiLine"
-                android:lines="3" />
+                android:lines="3"
+                android:maxLength="100" />
 
         </TableRow>
 
