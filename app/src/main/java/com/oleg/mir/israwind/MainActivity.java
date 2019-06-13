@@ -1,5 +1,6 @@
 package com.oleg.mir.israwind;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
 
     Date currentTimeMinusGranularity;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         //checkPlayServices();
 
         setTitle("IsraWind - Last 24h Reports");
+
+        ShowProgressBar();
 
         t1 = (TableLayout)findViewById(R.id.t1);
         t2 = (TableLayout)findViewById(R.id.t2);
@@ -175,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+                DismissProgresBar();
             }
 
             @Override
@@ -198,6 +203,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void ShowProgressBar()
+    {
+        progress = new ProgressDialog(this);
+        progress.setTitle("Looking for some wind");
+        progress.setMessage("Please wait...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+    }
+
+    private void DismissProgresBar()
+    {
+        progress.dismiss();
+    }
     private void SetCurrentTimeMinusGranularity()
     {
         try {
