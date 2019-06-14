@@ -1,7 +1,10 @@
 package com.oleg.mir.israwind;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -131,6 +134,11 @@ public class MainActivity extends AppCompatActivity {
             t2.addView(tableRowArray[j]);
         }
 
+        if(!isNetworkAvailable())
+        {
+            progress.setMessage("No Internet Connection!");
+        }
+
         windReportDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -188,6 +196,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private boolean checkPlayServices() {

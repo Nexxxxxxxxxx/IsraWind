@@ -1,8 +1,13 @@
 package com.oleg.mir.israwind;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -40,7 +45,13 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling_modify_notifications);
 
-        setTitle("Notification Settings");
+        setTitle("Notifications");
+
+        if(!isNetworkAvailable())
+        {
+            NoInternetAlert();
+            return;
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.UsersInfoReference);
@@ -78,6 +89,30 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    private boolean isNetworkAvailable()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void NoInternetAlert()
+    {
+        new AlertDialog.Builder(ScrollingActivityModifyNotifications.this)
+                .setTitle("No Internet connection!")
+                .setMessage("Please check your internet connection.")
+                .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                //.setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.stat_notify_error)
+                .show();
     }
 
     private void ShowNotificationSettings()

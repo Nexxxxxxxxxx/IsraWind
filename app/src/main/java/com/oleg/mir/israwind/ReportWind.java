@@ -1,8 +1,11 @@
 package com.oleg.mir.israwind;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -287,6 +290,12 @@ public class ReportWind extends AppCompatActivity {
         }
 
 
+        if(!isNetworkAvailable())
+        {
+            NoInternetAlert();
+            return;
+
+        }
 
         auth = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         WindReportDTO windReport = new WindReportDTO(windSpeed, direction,null, location, gust, comment,auth);
@@ -297,17 +306,21 @@ public class ReportWind extends AppCompatActivity {
         ShowReportStatus();
     }
 
+    private boolean isNetworkAvailable()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     private void ShowReportStatus()
     {
         new AlertDialog.Builder(ReportWind.this)
                 .setTitle("Report Status")
                 .setMessage("Your Report was added successfully!")
-
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Continue with delete operation
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -316,6 +329,22 @@ public class ReportWind extends AppCompatActivity {
                 // A null listener allows the button to dismiss the dialog and take no further action.
                 //.setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
+    private void NoInternetAlert()
+    {
+        new AlertDialog.Builder(ReportWind.this)
+                .setTitle("No Internet connection!")
+                .setMessage("Please check your internet connection.")
+                .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                //.setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.stat_notify_error)
                 .show();
     }
 
