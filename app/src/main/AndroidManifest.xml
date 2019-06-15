@@ -27,15 +27,15 @@
         <activity
             android:name=".ScrollingActivityModifyNotifications"
             android:label="@string/title_activity_scrolling_modify_notifications"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <service
-            android:name="com.google.firebase.messaging.FirebaseMessagingService">
+        <service android:name="com.google.firebase.messaging.FirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".UserSettingsActivity"></activity>
     </application>
 
 </manifest>

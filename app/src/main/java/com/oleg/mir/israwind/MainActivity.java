@@ -267,6 +267,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void UserSettings(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserSettingsActivity.class);
+        startActivity(intent);
+    }
+
     public void ModifyNotifications(View v)
     {
         Intent intent = new Intent(getApplicationContext(), ScrollingActivityModifyNotifications.class);
