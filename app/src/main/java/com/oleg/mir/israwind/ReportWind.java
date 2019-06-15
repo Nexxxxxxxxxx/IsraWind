@@ -16,12 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class ReportWind extends AppCompatActivity {
     EditText windSpeedEditText;
@@ -40,7 +41,8 @@ public class ReportWind extends AppCompatActivity {
         setTitle("Report a Wind");
 
         locationsDropdown = findViewById(R.id.spinner_location_dropdown);
-        ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, IsraWindConsts.Location);
+        //ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, IsraWindUtils.add2BeginningOfArray(IsraWindConsts.ChooseLocationText, IsraWindConsts.Location));
+        CustomAdapter locationsDropdownAdapter = new CustomAdapter(this, android.R.layout.simple_spinner_item, IsraWindUtils.add2BeginningOfArray(IsraWindConsts.ChooseLocationText, IsraWindConsts.Location), 0);
         locationsDropdownAdapter.setDropDownViewResource(R.layout.spinner_item);
         locationsDropdown.setAdapter(locationsDropdownAdapter);
 
@@ -172,7 +174,7 @@ public class ReportWind extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Gust must be greater or equal than windspeed", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(location+"")) {
+        if (TextUtils.isEmpty(location+"") || location.equals(IsraWindConsts.ChooseLocationText)) {
             Toast.makeText(getApplicationContext(), "Enter a location", Toast.LENGTH_SHORT).show();
             return;
         }

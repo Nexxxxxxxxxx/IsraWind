@@ -19,4 +19,13 @@ public final class IsraWindUtils {
 
         return currentDateandTime;
     }
+
+    public static <T> T[] add2BeginningOfArray(T element,T[] elements)
+    {
+        T[] newArray = Arrays.copyOf(elements, elements.length + 1);
+        newArray[0] = element;
+        System.arraycopy(elements, 0, newArray, 1, elements.length);
+
+        return newArray;
+    }
 }
