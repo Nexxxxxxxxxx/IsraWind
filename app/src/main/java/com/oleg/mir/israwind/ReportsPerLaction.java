@@ -93,6 +93,4 @@ public class ReportsPerLaction extends AppCompatActivity {
 
         t1.addView(tr,1);
     }
-
-
 }

@@ -31,7 +31,6 @@ public class ReportWind extends AppCompatActivity {
     private String auth;
     Drawable mDefaultButtonColor;
 
-    private boolean nwselected=false,nselected=false,neselected=false,wselected=false,eselected=false,swselected=false,sselected=false,seselected=false;
     private String currentDirection="";
 
     @Override
@@ -57,170 +56,63 @@ public class ReportWind extends AppCompatActivity {
     public void NWSelection(View v)
     {
         Button nw = findViewById(R.id.NWID);
-
-        if(!nwselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "NW ↘";
-            nwselected = true;
-        }
-        else
-        {
-            nwselected = false;
-        }
-
-        SetButtonsCollor(nw,!nwselected);
+        currentDirection = "NW ↘";
+        SetButtonsCollor(nw);
     }
 
     public void NSelection(View v)
     {
         Button n = findViewById(R.id.NID);
-
-        if(!nselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "N ⬇";
-            nselected = true;
-        }
-        else
-        {
-            nselected = false;
-        }
-
-        SetButtonsCollor(n,!nselected);
+        currentDirection = "N ⬇";
+        SetButtonsCollor(n);
     }
 
     public void NESelection(View v)
     {
         Button n = findViewById(R.id.NEID);
-
-        if(!neselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "NE ↙";
-            neselected = true;
-        }
-        else
-        {
-            neselected = false;
-        }
-
-        SetButtonsCollor(n,!neselected);
+        currentDirection = "NE ↙";
+        SetButtonsCollor(n);
     }
 
     public void WSelection(View v)
     {
         Button n = findViewById(R.id.WID);
-
-        if(!wselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "W ➡";
-            wselected = true;
-        }
-        else
-        {
-            wselected = false;
-        }
-
-        SetButtonsCollor(n,!wselected);
+        currentDirection = "W ➡";
+        SetButtonsCollor(n);
     }
 
     public void ESelection(View v)
     {
         Button n = findViewById(R.id.EID);
-
-        if(!eselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "E ⬅";
-            eselected = true;
-        }
-        else
-        {
-            eselected = false;
-        }
-
-        SetButtonsCollor(n,!eselected);
+        currentDirection = "E ⬅";
+        SetButtonsCollor(n);
     }
 
     public void SWSelection(View v)
     {
         Button n = findViewById(R.id.SWID);
-
-        if(!swselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "SW ↗";
-            swselected = true;
-        }
-        else
-        {
-            swselected = false;
-        }
-
-        SetButtonsCollor(n,!swselected);
+        currentDirection = "SW ↗";
+        SetButtonsCollor(n);
     }
 
     public void SSelection(View v)
     {
         Button n = findViewById(R.id.SID);
-
-        if(!sselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "S ⬆";
-            sselected = true;
-        }
-        else
-        {
-            sselected = false;
-        }
-
-        SetButtonsCollor(n,!sselected);
+        currentDirection = "S ⬆";
+        SetButtonsCollor(n);
     }
 
     public void SESelection(View v)
     {
         Button n = findViewById(R.id.SEID);
-
-        if(!seselected)
-        {
-            SetAllDirectionsToFalse();
-            currentDirection = "SE ↖";
-            seselected = true;
-        }
-        else
-        {
-            seselected = false;
-        }
-
-        SetButtonsCollor(n,!seselected);
+        currentDirection = "SE ↖";
+        SetButtonsCollor(n);
     }
 
-    private void SetAllDirectionsToFalse()
+    private void SetButtonsCollor(Button b)
     {
-        nwselected=false;
-        nselected=false;
-        neselected=false;
-        wselected=false;
-        eselected=false;
-        swselected=false;
-        sselected=false;
-        seselected=false;
-    }
-
-    private void SetButtonsCollor(Button b, boolean selection)
-    {
-        if(!selection)
-        {
-            SetBackgroundForAllDirectionButtons();
-            b.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        }
-        else
-        {
-            b.setBackground(mDefaultButtonColor);
-        }
+        SetBackgroundForAllDirectionButtons();
+        b.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 
     private void SetBackgroundForAllDirectionButtons()
@@ -325,9 +217,6 @@ public class ReportWind extends AppCompatActivity {
                         startActivity(intent);
                     }
                 })
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                //.setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
     }
@@ -341,9 +230,6 @@ public class ReportWind extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                //.setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.stat_notify_error)
                 .show();
     }
