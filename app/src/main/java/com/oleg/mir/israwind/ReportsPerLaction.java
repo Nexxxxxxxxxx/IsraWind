@@ -33,7 +33,7 @@ public class ReportsPerLaction extends AppCompatActivity {
         location = b.getString("location");
         setTitle(location+" | "+"Last "+IsraWindConsts.NumberOfReportsToShow+" Reports");
 
-        t1 = (TableLayout)findViewById(R.id.reportsPerLocationTableId);
+        t1 = (TableLayout)findViewById(R.id.reportsPerLocationTableIdData);
         t1.setColumnStretchable(0,true);
         t1.setColumnStretchable(1,true);
         t1.setColumnStretchable(2,true);
