@@ -198,6 +198,7 @@ public class ReportWind extends AppCompatActivity {
         UpdateAllWindReports(windReport);
 
         ShowReportStatus();
+
     }
 
     private boolean isNetworkAvailable()
@@ -217,6 +218,7 @@ public class ReportWind extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)
