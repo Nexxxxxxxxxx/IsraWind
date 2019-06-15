@@ -24,12 +24,25 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    boolean allowBack = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        try
+        {
+            Bundle b = getIntent().getExtras();
+            allowBack = b.getBoolean("allow_back");
+        }
+        catch(Exception e)
+        {
+
+        }
+
+
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
@@ -105,5 +118,13 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!allowBack) {
+        } else {
+            super.onBackPressed();
+        }
     }
 }
