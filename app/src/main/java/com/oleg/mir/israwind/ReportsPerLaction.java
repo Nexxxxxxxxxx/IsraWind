@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.HashSet;
 
 public class ReportsPerLaction extends AppCompatActivity {
 
@@ -25,6 +22,7 @@ public class ReportsPerLaction extends AppCompatActivity {
     TableRow tr;
     TextView[] tableColArray;
     public String location;
+    int reportsCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +31,7 @@ public class ReportsPerLaction extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         location = b.getString("location");
-        setTitle(location+" Reports");
+        setTitle(location+" | "+"Last "+IsraWindConsts.NumberOfReportsToShow+" Reports");
 
         t1 = (TableLayout)findViewById(R.id.reportsPerLocationTableId);
         t1.setColumnStretchable(0,true);
@@ -41,14 +39,15 @@ public class ReportsPerLaction extends AppCompatActivity {
         t1.setColumnStretchable(2,true);
         t1.setColumnStretchable(3,true);
 
-        windReportDatabase.addValueEventListener(new ValueEventListener() {
+        //Query last =  windReportDatabase.orderByKey().limitToFirst(5);
+
+        windReportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot allReports = dataSnapshot.child(location);
 
-
                 for(DataSnapshot reportItem : allReports.getChildren()) {
-
+                    reportsCounter = reportsCounter +1;
                     Integer windSpeed = reportItem.child("windSpeed").getValue(Integer.class);
                     Integer gustSpeed = reportItem.child("gustSpeed").getValue(Integer.class);
                     String windDirection = reportItem.child("windDirection").getValue(String.class);
@@ -59,6 +58,11 @@ public class ReportsPerLaction extends AppCompatActivity {
                     WindReportDTO windReport = new WindReportDTO(windSpeed, windDirection,reportTime, location, gustSpeed, comment,userReported);
 
                     SetReportsTable(windReport);
+
+                    if(reportsCounter>IsraWindConsts.NumberOfReportsToShow)
+                    {
+                        return;
+                    }
 
                 }
             }
