@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     tableColArray[3].setWidth((int)Math.round(width*0.25));
                 }
 
+                //tableColArray[i].setBackgroundResource(R.drawable.cell_border);
                 tableRowArray[j].addView(tableColArray[i]);
 
 
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } );
 
+            //tableRowArray[j].setBackgroundResource(R.drawable.cell_border);
             t2.addView(tableRowArray[j]);
         }
 
