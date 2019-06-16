@@ -23,6 +23,8 @@ public class UserSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_settings);
 
         setTitle("Settings");
+
+        IsraWindUtils.SetAdMob(this);
     }
 
 
