@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ import java.io.StreamCorruptedException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScrollingActivityModifyNotifications extends AppCompatActivity {
+public class NotificationSettings extends AppCompatActivity {
 
     String locationNotification;
     String locationId;
@@ -43,18 +42,17 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling_modify_notifications);
+        setContentView(R.layout.activity_notification_settings);
 
         setTitle("Notifications");
+
+        IsraWindUtils.SetAdMob(this);
 
         if(!isNetworkAvailable())
         {
             NoInternetAlert();
             return;
         }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         readSetttings();
         ShowNotificationSettings();
@@ -181,7 +179,7 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
 
     private void NoInternetAlert()
     {
-        new AlertDialog.Builder(ScrollingActivityModifyNotifications.this)
+        new AlertDialog.Builder(NotificationSettings.this)
                 .setTitle("No Internet connection!")
                 .setMessage("Please check your internet connection.")
                 .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -225,7 +223,7 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
 
             NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.ScrollViewID);
 
-            LinearLayout linearLayout = findViewById(R.id.TogglesLinearLayoutID);
+            LinearLayout linearLayout = findViewById(R.id.NotificationslayoutID);
 
             if (linearLayout != null) {
                 linearLayout.addView(sw);
@@ -244,42 +242,42 @@ public class ScrollingActivityModifyNotifications extends AppCompatActivity {
                     if(isChecked)
                     {
                         FirebaseMessaging.getInstance().subscribeToTopic(locationId)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    String msg;
-                                    if(task.isSuccessful())
-                                    {
-                                        msg = "Subscribed to: "+locationNotification;
-                                    }
-                                    else
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        String msg;
+                                        if(task.isSuccessful())
                                         {
-                                        msg = "Failed to Subscribe";
+                                            msg = "Subscribed to: "+locationNotification;
+                                        }
+                                        else
+                                        {
+                                            msg = "Failed to Subscribe";
+                                        }
+                                        Log.d("LocationNotification", msg);
+                                        Toast.makeText(NotificationSettings.this, msg, Toast.LENGTH_SHORT).show();
                                     }
-                                    Log.d("LocationNotification", msg);
-                                    Toast.makeText(ScrollingActivityModifyNotifications.this, msg, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                });
                     }
                     else
                     {
                         FirebaseMessaging.getInstance().unsubscribeFromTopic(locationId)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    String msg;
-                                    if(task.isSuccessful())
-                                    {
-                                        msg = "Unsubscribed from: "+locationNotification;
-                                    }
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        String msg;
+                                        if(task.isSuccessful())
+                                        {
+                                            msg = "Unsubscribed from: "+locationNotification;
+                                        }
 
-                                    else{
-                                        msg = "Failed to Unsubscribe";
+                                        else{
+                                            msg = "Failed to Unsubscribe";
+                                        }
+                                        Log.d("LocationNotification", msg);
+                                        Toast.makeText(NotificationSettings.this, msg, Toast.LENGTH_SHORT).show();
                                     }
-                                    Log.d("LocationNotification", msg);
-                                    Toast.makeText(ScrollingActivityModifyNotifications.this, msg, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                });
                     }
                 }
             });

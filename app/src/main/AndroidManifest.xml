@@ -24,10 +24,6 @@
         <activity android:name=".AccountActivity.SignupActivity" />
         <activity android:name=".AccountActivity.ResetPassword" />
         <activity android:name=".ReportsPerLaction" />
-        <activity
-            android:name=".ScrollingActivityModifyNotifications"
-            android:label="@string/title_activity_scrolling_modify_notifications"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name="com.google.firebase.messaging.FirebaseMessagingService">
             <intent-filter>
@@ -35,12 +31,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".UserSettingsActivity"></activity>
+        <activity android:name=".UserSettingsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
+        <activity android:name=".NotificationSettings"></activity>
     </application>
 
 </manifest>

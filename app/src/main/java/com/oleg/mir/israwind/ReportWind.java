@@ -11,12 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,6 +37,8 @@ public class ReportWind extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_wind);
         setTitle("Report a Wind");
+
+        IsraWindUtils.SetAdMob(this);
 
         locationsDropdown = findViewById(R.id.spinner_location_dropdown);
         //ArrayAdapter<String> locationsDropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, IsraWindUtils.add2BeginningOfArray(IsraWindConsts.ChooseLocationText, IsraWindConsts.Location));

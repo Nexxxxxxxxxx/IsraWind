@@ -1,5 +1,10 @@
 package com.oleg.mir.israwind;
 
+import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,5 +32,13 @@ public final class IsraWindUtils {
         System.arraycopy(elements, 0, newArray, 1, elements.length);
 
         return newArray;
+    }
+
+    public static void SetAdMob(AppCompatActivity a)
+    {
+        AdView mAdView;
+        mAdView = a.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

@@ -49,17 +49,13 @@ public class MainActivity extends AppCompatActivity {
     Date currentTimeMinusGranularity;
     ProgressDialog progress;
 
-    private AdView mAdView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        IsraWindUtils.SetAdMob(this);
 
         FirebaseApp.initializeApp(this);
         //checkPlayServices();
@@ -285,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ModifyNotifications(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), ScrollingActivityModifyNotifications.class);
+        Intent intent = new Intent(getApplicationContext(), NotificationSettings.class);
         startActivity(intent);
     }
     public void ShowReportsPerLocation(String location)
