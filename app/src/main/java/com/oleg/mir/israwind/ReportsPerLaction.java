@@ -29,6 +29,8 @@ public class ReportsPerLaction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports_per_laction);
 
+        IsraWindUtils.SetAdMob(this);
+
         Bundle b = getIntent().getExtras();
         location = b.getString("location");
         setTitle(location+" | "+"Last "+IsraWindConsts.NumberOfReportsToShow+" Reports");
