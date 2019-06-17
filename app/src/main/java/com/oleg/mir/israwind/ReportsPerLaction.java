@@ -33,6 +33,10 @@ public class ReportsPerLaction extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         location = b.getString("location");
+        Query searchQuery = windReportDatabase.child(location).limitToLast(IsraWindConsts.NumberOfReportsToShow);
+
+        DatabaseReference a = searchQuery.getRef();
+
         setTitle(location+" | "+"Last "+IsraWindConsts.NumberOfReportsToShow+" Reports");
 
         t1 = (TableLayout)findViewById(R.id.reportsPerLocationTableIdData);
@@ -43,12 +47,12 @@ public class ReportsPerLaction extends AppCompatActivity {
 
         //Query last =  windReportDatabase.orderByKey().limitToFirst(5);
 
-        windReportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        a.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataSnapshot allReports = dataSnapshot.child(location);
+                Iterable<DataSnapshot> allReports = dataSnapshot.getChildren();
 
-                for(DataSnapshot reportItem : allReports.getChildren()) {
+                for(DataSnapshot reportItem : allReports) {
                     reportsCounter = reportsCounter +1;
                     Integer windSpeed = reportItem.child("windSpeed").getValue(Integer.class);
                     Integer gustSpeed = reportItem.child("gustSpeed").getValue(Integer.class);
