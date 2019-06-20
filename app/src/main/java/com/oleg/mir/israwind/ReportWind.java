@@ -263,7 +263,6 @@ public class ReportWind extends AppCompatActivity {
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference windReportDatabase = database.getReference(IsraWindConsts.LastWindReportReference);
-
         DatabaseReference locationRef = windReportDatabase.child(windReport.location);
 
         Map<String,Object> taskMap = new HashMap<String,Object>();
